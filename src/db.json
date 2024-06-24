@@ -1,0 +1,75 @@
+{
+    "Videos":[
+        {
+            "id": 1,
+            "titulo": "Como utilizar el Display block, inline, inline-block",
+            "img": "https://caelum-online-public.s3.amazonaws.com/ESP-2052+-++React%3A+practicando+React+con+Js/282x425+-+Jean.png",
+            "video": "https://www.youtube.com/embed/AG2QssLpQzI?si=6Yn355wcxAqU7_Ld",
+            "categoria": "FRONT END",
+            "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!"
+        },
+        {
+            "id": 2,
+            "titulo": "Productividad en el trabajo remoto",
+            "img": "https://caelum-online-public.s3.amazonaws.com/ESP-2052+-++React%3A+practicando+React+con+Js/282x425+-+Gabi.png",
+            "video": "https://www.youtube.com/embed/AULPtYo25Lw?si=UGdKX1NSrEcQ0jfn",
+            "categoria": "BACK END",
+            "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!"
+        },
+        {
+            "id": 3,
+            "titulo": "¿Cuáles son las principales áreas de la programación?",
+            "img": "https://caelum-online-public.s3.amazonaws.com/ESP-2052+-++React%3A+practicando+React+con+Js/282x425+-+Genesis.png",
+            "video": "https://www.youtube.com/embed/03cxUlwLVt4?si=zVCUQNO-eS2RZQTO",
+            "categoria": "DATA SCIENCE",
+            "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!"
+        },
+        {
+            "id": 4,
+            "titulo": "Detección de intruso con IA",
+            "img": "https://caelum-online-public.s3.amazonaws.com/ESP-2052+-++React%3A+practicando+React+con+Js/282x425+-+Ale.png",
+            "video": "https://www.youtube.com/embed/5T_Q_NtNLZE?si=M7D0JeagaKqsoaFs",
+            "categoria": "PROGRAMACION",
+            "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!"
+        },
+        {
+            "id": 5,
+            "titulo": "Detección de intruso con IA",
+            "img": "https://caelum-online-public.s3.amazonaws.com/ESP-2052+-++React%3A+practicando+React+con+Js/282x425+-+Ale.png",
+            "video": "https://www.youtube.com/embed/5T_Q_NtNLZE?si=M7D0JeagaKqsoaFs",
+            "categoria": "DEVOPS",
+            "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!"
+        },
+        {
+            "id": 6,
+            "titulo": "Detección de intruso con IA",
+            "img": "https://caelum-online-public.s3.amazonaws.com/ESP-2052+-++React%3A+practicando+React+con+Js/282x425+-+Ale.png",
+            "video": "https://www.youtube.com/embed/5T_Q_NtNLZE?si=M7D0JeagaKqsoaFs",
+            "categoria": "UX Y DISEÑO",
+            "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!"
+        },
+        {
+            "id": 7,
+            "titulo": "Detección de intruso con IA",
+            "img": "https://caelum-online-public.s3.amazonaws.com/ESP-2052+-++React%3A+practicando+React+con+Js/282x425+-+Ale.png",
+            "video": "https://www.youtube.com/embed/5T_Q_NtNLZE?si=M7D0JeagaKqsoaFs",
+            "categoria": "MOVIL",
+            "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!"
+        }
+    ],
+    "Botones":[
+        {
+            "id": 1,
+            "titulo": "home",
+            "link":"/",
+            "selected": true
+        },
+        {
+            "id": 2,
+            "titulo": "nuevo viedo",
+            "link":"/",
+            "selected": false
+        }
+    ]
+}
+
