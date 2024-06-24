@@ -4,11 +4,11 @@ const CardsStyle = styled.div`
     width: 430px;
     height: 320px;
     .img{
-        border: 5px solid #6BD1FF;
+        border: 5px solid ${props=> props.color};
         border-radius: 15px 15px 0px 0px;
         width: 100%;
         height: 261px;
-        box-shadow: inset 0px 0px 17px 8px #6BD1FF;
+        box-shadow: inset 0px 0px 17px 8px ${props=> props.color};
     }
 `
 
@@ -19,11 +19,11 @@ const Info = styled.div`
     align-items: center;
     height: 59px;
     width: 100%;
-    box-shadow: inset 0px -4px 5px 3px #6BD1FF;
+    box-shadow: inset 0px -4px 5px 3px ${props=> props.color};
     border-radius: 0px 0px 15px 15px;
     border-width: 0px 5px 5px 5px;
     border-style: solid;
-    border-color: #6BD1FF;
+    border-color: ${props=> props.color};
     margin-top:-6px;
     background-color: black;
     color: white;
@@ -49,10 +49,11 @@ const Editar = styled.div`
     cursor: pointer;
 `
 
-const Card = () => {
-    return<CardsStyle>
-        <img src="/img/BannerImg.png" alt="titulo" className="img"/>
-        <Info>
+const Card = ({video, color}) => {
+    console.log(color)
+    return<CardsStyle color={color}>
+        <img src={video.img} alt={video.titulo} className="img"/>
+        <Info color={color}>
             <Borrar>
                 <img src="/icons/trash.png" alt="Eliminar"/>
                 <p>BORRAR</p>

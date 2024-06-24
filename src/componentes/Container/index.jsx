@@ -31,21 +31,30 @@ const Rectagnle = styled.section`
         justify-content: space-evenly;
         overflow-x: scroll;
         overflow-y: hidden;
+        gap: 30px;
         @media (max-width: 1024px) {
             align-self: center;
         }
     }
 `
 
-const Container = () =>{
-    return<Rectagnle>
-        <div className="titulo-container" style={{background: `#6BD1FF`}}>
-            <h2>FRONT END</h2>
-        </div>
-        <div className="cards-container">
-            <Card/>
-        </div>
-    </Rectagnle>
+const Container = ({ Equipo, videos }) => {
+    return<>
+        { videos.length !== 0 &&
+            <Rectagnle>
+            <div className="titulo-container" style={{ background: `${Equipo.color}` }}>
+                <h2>{Equipo.titulo}</h2>
+            </div>
+            <div className="cards-container">
+                {
+                    videos.map(video=>{
+                        return <Card video={video} color={Equipo.color}/>
+                    })
+                }
+            </div>
+        </Rectagnle>
+        }
+    </>
 }
 
 export default Container

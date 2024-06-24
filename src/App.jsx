@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Inicio from "./pages/Inicio"
 import PaginaBase from "./pages/PaginaBase"
+import Page404 from "./pages/Page404"
 
 function App() {
   return (
@@ -8,7 +9,8 @@ function App() {
       <Router>
         <Routes>
             <Route path="/" element={<PaginaBase/>}>
-           <Route index element={<Inicio/>}></Route>
+              <Route index element={<Inicio/>}></Route>
+              <Route path="*" element={<Page404/>}></Route>
           </Route>
         </Routes>
       </Router>
@@ -17,3 +19,4 @@ function App() {
 }
 
 export default App
+
