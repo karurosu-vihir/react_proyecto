@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import styled from "styled-components"
+import { Context } from "../../Context/GlobalContext"
 
 const BannerMain = styled.section`
     background-image: url("/img/BannerImg.png");
@@ -18,8 +20,8 @@ const Clipper = styled.div`
         width: 647px;
         height: 333px;
         align-self: center;
-        border: inset 5px solid #6BD1FF;
-        box-shadow: 0px 0px 17px 8px #6BD1FF;
+        border: inset 5px solid ${props=> props.color};
+        box-shadow: 0px 0px 17px 8px ${props=> props.color};
         border-radius: 15px;
         @media (max-width: 1024px){
         width: 459px;
@@ -44,7 +46,7 @@ const Info = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 282px;
+        width: 350px;
         height: 65px;
         border-radius: 15px;
         font-weight: 800;
@@ -68,15 +70,19 @@ const Info = styled.div`
 `
 
 const Banner = () => {
+    const {BannerContent} = useContext(Context)
+    console.log(BannerContent)
     return<BannerMain>
-        <Clipper>
-            <Info>
-                <h2 style={{background: `#6BD1FF`}}>FRONT END</h2>
-                <h3>Challenge React</h3>
-                <p>Este challenge es una forma de aprendizaje. Es un mecanismo donde podrás comprometerte en la resolución de un problema para poder aplicar todos los conocimientos adquiridos en la formación React.</p>
-            </Info>
-            <img src="./img/BannerImg.png" alt="titulo" />
-        </Clipper>
+        { BannerContent.length !==0 &&
+            <Clipper color={BannerContent.color.color}>
+                <Info>
+                    <h2 style={{background: `${BannerContent.color.color}`}}>{BannerContent.categoria}</h2>
+                    <h3>{BannerContent.titulo}</h3>
+                    <p>{BannerContent.descripcion}</p>
+                </Info>
+                <img src={BannerContent.img} alt="titulo" />
+            </Clipper>
+        }
     </BannerMain>
 }
 

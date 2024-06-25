@@ -9,7 +9,7 @@ const PaginaBase = () => {
     return <>
         <ContextProvider>
             <Cabecera />
-            <main style={{background: `rgba(0, 0, 0, 0.9)`}}>
+            <main>
                 <Outlet />
             </main>
             <Pie/>

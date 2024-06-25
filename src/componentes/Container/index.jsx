@@ -2,13 +2,16 @@ import styled from "styled-components"
 import Card from "./Card"
 
 const Rectagnle = styled.section`
-    height: 530px;
+    height: 460px;
     display: flex;
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
     padding: 0 20px;
-    padding-bottom: 93px;
+    padding-bottom: 30px;
+    margin-bottom: 63px;
+    overflow-x: scroll;
+    overflow-y: hidden;
     .titulo-container{
         width: 432px;
         height: 70px;
@@ -16,6 +19,9 @@ const Rectagnle = styled.section`
         display: flex;
         justify-content: center;
         align-items: center;
+        position: sticky;
+        top: 0;
+        left: 20px;
         @media (max-width: 1024px) {
             align-self: center;
         }
@@ -29,12 +35,7 @@ const Rectagnle = styled.section`
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-evenly;
-        overflow-x: scroll;
-        overflow-y: hidden;
         gap: 30px;
-        @media (max-width: 1024px) {
-            align-self: center;
-        }
     }
 `
 
@@ -47,8 +48,8 @@ const Container = ({ Equipo, videos }) => {
             </div>
             <div className="cards-container">
                 {
-                    videos.map(video=>{
-                        return <Card video={video} color={Equipo.color}/>
+                    videos.map((video,index)=>{
+                        return <Card key={index} video={video} color={Equipo.color}/>
                     })
                 }
             </div>

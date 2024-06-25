@@ -37,7 +37,9 @@ export const ContextProvider = ({ children }) => {
 
     const [videos, setVideos] = useState(...Videos) 
 
-    return (<Context.Provider value={{ Equipos, setEquipos, Videos, setVideos }}>
+    const [BannerContent, setBannerContent] = useState([])
+
+    return (<Context.Provider value={{ Equipos, setEquipos, Videos, setVideos, BannerContent, setBannerContent }}>
         {children}
     </Context.Provider>
     )

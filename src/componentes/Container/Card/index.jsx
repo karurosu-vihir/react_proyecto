@@ -1,4 +1,6 @@
+import { useContext } from "react"
 import styled from "styled-components"
+import { Context } from "../../../Context/GlobalContext"
 
 const CardsStyle = styled.div`
     width: 430px;
@@ -50,9 +52,15 @@ const Editar = styled.div`
 `
 
 const Card = ({video, color}) => {
-    console.log(color)
+
+    const {setBannerContent} = useContext(Context)
+
     return<CardsStyle color={color}>
-        <img src={video.img} alt={video.titulo} className="img"/>
+        <img src={video.img} alt={video.titulo} className="img" onClick={()=>{
+            const videotemp = {...video}
+            videotemp.color = {color} 
+            setBannerContent(videotemp)
+            }}/>
         <Info color={color}>
             <Borrar>
                 <img src="/icons/trash.png" alt="Eliminar"/>
