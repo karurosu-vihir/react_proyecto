@@ -2,22 +2,23 @@ import { useContext } from "react"
 import Banner from "../componentes/Banner"
 import Container from "../componentes/Container"
 import { Context } from "../Context/GlobalContext"
+import Modal from "../componentes/Modal"
 
 
 const Inicio = () => {
-
-    const { Videos, Equipos } = useContext(Context)
+    const { videos, Equipos } = useContext(Context)
     return <>
-        {Videos.length !== 0 &&
+        {videos.length !== 0 &&
             <>
                 <Banner/>
                 {
                     Equipos.map((Equipo, index) => {
                         return <Container key={index} Equipo={Equipo}
-                        videos={Videos.filter(Video=> Video.categoria === Equipo.titulo)}
+                        videos={videos.filter(Video=> Video.categoria === Equipo.titulo)}
                          />
                     })
                 }
+                <Modal/>
             </>
         }
     </>

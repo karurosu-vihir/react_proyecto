@@ -1,6 +1,7 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { Link, useLocation } from "react-router-dom"
+import { useContext, useState } from "react"
+import { Context } from "../../Context/GlobalContext"
 
 const Header = styled.header`
     display: flex;
@@ -49,39 +50,17 @@ const GrupoBotones = styled.div`
 
 const Cabecera = () => {
 
-    const [botones,setbotones] = useState([
-        {
-            "titulo": "home",
-            "link":"/",
-            "selected": true
-        },
-        {
-            "titulo": "nuevo viedo",
-            "link":"/",
-            "selected": false
-        }
-    ])
+    const {botones, selectitems_menu, selectitems_menuindex} = useContext(Context)
 
-    const selectitems_menu = (id) => {
-        const items = botones.map((item,index)=>{
-            if(id === index){
-                item.selected = true
-            }
-            else{
-                item.selected = false
-            }
-            return item
-        })
-        setbotones(items)
-    }
+    const location = useLocation()
 
-    return <Header>
+    return <Header onLoad={()=>{selectitems_menu(location.pathname)}}>
         <img src="./img/logo.png" alt="logo" />
         <GrupoBotones>
             {
                 botones.map((boton,index)=>{
-                    return <Link key={index} to={boton.link} className={`Link ${boton.selected ? "Home":"Video"}`} 
-                    onClick={()=>selectitems_menu(index)}>{boton.titulo}</Link>
+                    return <Link key={index} to={boton.link} className={`Link ${boton.selected ? "Home":"Video"}`}
+                    onClick={()=>{selectitems_menuindex(index)}}>{boton.titulo}</Link>
                 })
             }
         </GrupoBotones>

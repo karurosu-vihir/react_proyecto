@@ -11,6 +11,7 @@ const CardsStyle = styled.div`
         width: 100%;
         height: 261px;
         box-shadow: inset 0px 0px 17px 8px ${props=> props.color};
+        cursor: pointer;
     }
 `
 
@@ -53,20 +54,27 @@ const Editar = styled.div`
 
 const Card = ({video, color}) => {
 
-    const {setBannerContent} = useContext(Context)
+    const {setBannerContent, setestadoModal, setvideoModal} = useContext(Context)
+
+    const SendBanner = () => {
+        const videotemp = {...video}
+        videotemp.color = {color} 
+        setBannerContent(videotemp)
+    }
+
+    const update = () => {
+        setestadoModal(true)
+        setvideoModal(video)
+    }
 
     return<CardsStyle color={color}>
-        <img src={video.img} alt={video.titulo} className="img" onClick={()=>{
-            const videotemp = {...video}
-            videotemp.color = {color} 
-            setBannerContent(videotemp)
-            }}/>
+        <img src={video.img} alt={video.titulo} className="img" onClick={()=>{SendBanner()}}/>
         <Info color={color}>
             <Borrar>
                 <img src="/icons/trash.png" alt="Eliminar"/>
                 <p>BORRAR</p>
             </Borrar>
-            <Editar>
+            <Editar onClick={()=>{update()}}>
                 <img src="/icons/edit.png" alt="Editar"/>
                 <p>EDITAR</p>
             </Editar>

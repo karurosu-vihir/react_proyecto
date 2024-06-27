@@ -35,11 +35,74 @@ export const ContextProvider = ({ children }) => {
     }
     ])
 
-    const [videos, setVideos] = useState(...Videos) 
+    const [Equipo, setEquipo] = useState("")
+
+    const [videos, setVideos] = useState([...Videos]) 
 
     const [BannerContent, setBannerContent] = useState([])
 
-    return (<Context.Provider value={{ Equipos, setEquipos, Videos, setVideos, BannerContent, setBannerContent }}>
+    const [botones,setbotones] = useState([
+        {
+            "titulo": "home",
+            "link":"/",
+            "selected": true
+        },
+        {
+            "titulo": "nuevo viedo",
+            "link":"/form",
+            "selected": false
+        }
+    ])
+
+    const selectitems_menu = (title) => {
+        const items = botones.map((item)=>{
+            if(title === item.link){
+                item.selected = true
+            }
+            else{
+                item.selected = false
+            }
+            return item
+        })
+        setbotones(items)
+    }
+
+    const selectitems_menuindex = (id) => {
+        const items = botones.map((item,index)=>{
+            if(id === index){
+                item.selected = true
+            }
+            else{
+                item.selected = false
+            }
+            return item
+        })
+        setbotones(items)
+    }
+    
+    // Select
+    const cambioSelect = (e) =>{
+        setEquipo(e.target.value);
+    } 
+
+    const [text, setText] = useState("");
+    const cambioText = (e) =>{
+        setText(e.target.value);
+    }
+    
+    const titulos = Equipos.map(equipo => equipo.titulo);
+
+    const [estadoModal, setestadoModal] = useState(false)
+    
+    const [videoModal, setvideoModal] = useState([])
+
+
+    return (<Context.Provider value={{ Equipos, setEquipos, Equipo, cambioSelect, videos, 
+                                        setVideos, BannerContent, setBannerContent, botones, 
+                                        selectitems_menu, selectitems_menuindex, titulos, 
+                                        text, cambioText, setText, setEquipo,setestadoModal,
+                                        estadoModal, videoModal, setvideoModal
+                                    }}>
         {children}
     </Context.Provider>
     )

@@ -23,6 +23,7 @@ const Clipper = styled.div`
         border: inset 5px solid ${props=> props.color};
         box-shadow: 0px 0px 17px 8px ${props=> props.color};
         border-radius: 15px;
+        cursor: pointer;
         @media (max-width: 1024px){
         width: 459px;
         height: 216px;
@@ -71,7 +72,6 @@ const Info = styled.div`
 
 const Banner = () => {
     const {BannerContent} = useContext(Context)
-    console.log(BannerContent)
     return<BannerMain>
         { BannerContent.length !==0 &&
             <Clipper color={BannerContent.color.color}>
