@@ -111,6 +111,32 @@ const Modal = () => {
     const inputImg = useRef(null)
     const inputVideo = useRef(null)
 
+    // PUT
+    const Actualizar = async ({titulo,img,video,categoria,descripcion}) => {
+       try{
+            const conexion = await fetch(`http://localhost:3000/Videos/${videoModal.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    titulo,
+                    img,
+                    video,
+                    categoria,
+                    descripcion
+                })
+            });
+            if (!conexion.ok) {
+                throw new Error('Network response was not ok');
+            }
+        } 
+        catch (error) {
+            console.error("Error while updating video:", error);
+        }
+    }   
+    
+
     const guardar = (e) =>{
         e.preventDefault();
         let datosaenviar = {
@@ -122,8 +148,12 @@ const Modal = () => {
         };
         setEquipo("")
         setText("")
-        console.log(datosaenviar)
+        inputTitulo.current.value = ""
+        inputImg.current.value = ""
+        inputVideo.current.value = "" 
+        Actualizar(datosaenviar)
         alert("Los datos han sido guardados")
+        setestadoModal(false)
     }
 
     // Limpiar campos

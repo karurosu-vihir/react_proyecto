@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from "react"
 import styled from "styled-components"
 import { Context } from "../../Context/GlobalContext"
-import { useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const FormStyle = styled.form`
     display: flex;
@@ -113,15 +113,42 @@ const Button = styled.input`
 
 const Formulario = () =>{
 
-    const {titulos, Equipo, cambioSelect, text, cambioText, setText, setEquipo} = useContext(Context)
+    const {titulos, Equipo, cambioSelect, text, cambioText, setText, setEquipo, selectitems_menu} = useContext(Context)
 
     // Dom de los inputs
     const inputTitulo = useRef(null)
     const inputImg = useRef(null)
     const inputVideo = useRef(null)
 
+    // Navegacion
+    const nave = useNavigate() 
+
+    // POST
+    
+    async function crearVideos({titulo,img,video,categoria,descripcion}){
+        try{
+            const conexion = await fetch("http://localhost:3000/Videos",{
+                method:"POST",
+                headers:{"Content-type":"application/json"},
+                body:JSON.stringify({
+                    titulo,
+                    img,
+                    video,
+                    categoria,
+                    descripcion
+                })
+            });
+        
+        if (!conexion.ok) {
+                throw new Error('Network response was not ok');
+            }
+        }catch(error){
+            console.error("Error while creating videos:", error);
+        }
+    }
+
     // Guardar Datos
-    const guardar = (e) =>{
+    const guardar = async(e) =>{
         e.preventDefault();
         let datosaenviar = {
             titulo: inputTitulo.current.value,
@@ -132,8 +159,17 @@ const Formulario = () =>{
         };
         setEquipo("")
         setText("")
-        console.log(datosaenviar)
-        alert("Los datos han sido guardados")
+        inputTitulo.current.value = ""
+        inputImg.current.value = ""
+        inputVideo.current.value = "" 
+        try {
+            await crearVideos(datosaenviar);
+            alert("Los datos han sido guardados");
+            selectitems_menu('/')
+            nave('/');
+        } catch (error) {
+            alert("Error while saving data");
+        }
     }
 
     // Limpiar campos
@@ -145,9 +181,6 @@ const Formulario = () =>{
         inputImg.current.value = ""
         inputVideo.current.value = "" 
     }
-
-    const location = useLocation()
-
     
     const Alcargar = () => {
         setEquipo("")
@@ -200,3 +233,4 @@ const Formulario = () =>{
 }
 
 export default Formulario
+

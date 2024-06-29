@@ -1,5 +1,4 @@
-import { createContext, useState } from "react";
-import {Videos} from "../db.json"
+import { createContext, useEffect, useState } from "react";
 
 export const Context = createContext();
 
@@ -37,7 +36,7 @@ export const ContextProvider = ({ children }) => {
 
     const [Equipo, setEquipo] = useState("")
 
-    const [videos, setVideos] = useState([...Videos]) 
+    const [videos, setVideos] = useState([]) 
 
     const [BannerContent, setBannerContent] = useState([])
 
@@ -95,8 +94,7 @@ export const ContextProvider = ({ children }) => {
     const [estadoModal, setestadoModal] = useState(false)
     
     const [videoModal, setvideoModal] = useState([])
-
-
+ 
     return (<Context.Provider value={{ Equipos, setEquipos, Equipo, cambioSelect, videos, 
                                         setVideos, BannerContent, setBannerContent, botones, 
                                         selectitems_menu, selectitems_menuindex, titulos, 

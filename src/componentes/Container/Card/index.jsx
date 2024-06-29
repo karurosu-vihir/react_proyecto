@@ -54,7 +54,7 @@ const Editar = styled.div`
 
 const Card = ({video, color}) => {
 
-    const {setBannerContent, setestadoModal, setvideoModal} = useContext(Context)
+    const {setBannerContent, BannerContent, setestadoModal, setvideoModal} = useContext(Context)
 
     const SendBanner = () => {
         const videotemp = {...video}
@@ -67,10 +67,27 @@ const Card = ({video, color}) => {
         setvideoModal(video)
     }
 
+    const borrar = async (id) => {
+        try{
+            if(BannerContent !== "" && BannerContent.id === id){
+                setBannerContent("")
+            }
+            const conexion = await fetch(`http://localhost:3000/Videos/${id}`,{
+                method:"DELETE",
+                headers:{"Content-type":"application/json"},
+            });
+            if (!conexion.ok) {
+                throw new Error('Network response was not ok');
+            }
+        }catch(error){
+            console.error("Error while creating videos:", error);
+        } 
+    }
+
     return<CardsStyle color={color}>
         <img src={video.img} alt={video.titulo} className="img" onClick={()=>{SendBanner()}}/>
         <Info color={color}>
-            <Borrar>
+            <Borrar onClick={()=>{borrar(video.id)}}>
                 <img src="/icons/trash.png" alt="Eliminar"/>
                 <p>BORRAR</p>
             </Borrar>
