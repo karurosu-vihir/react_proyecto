@@ -44,12 +44,16 @@ export const ContextProvider = ({ children }) => {
         {
             "titulo": "home",
             "link":"/",
-            "selected": true
+            "selected": true,
+            "iconDefault": "./icons/HomeDefault.png",
+            "iconSelected": "./icons/HomeSelected.png"
         },
         {
             "titulo": "nuevo viedo",
             "link":"/form",
-            "selected": false
+            "selected": false,
+            "iconDefault": "./icons/AddDefault.png",
+            "iconSelected": "./icons/AddSelected.png"
         }
     ])
 
@@ -94,12 +98,40 @@ export const ContextProvider = ({ children }) => {
     const [estadoModal, setestadoModal] = useState(false)
     
     const [videoModal, setvideoModal] = useState([])
+
+    // Custom Errors
+    // Lista de Errores
+    const tiposerror = ["valueMissing", "patternMismatch", "tooShort", "typeMismatch", "customError"];
+
+    // Mensajes de error
+    const mensajes = {
+        titulo: {
+            valueMissing: "El campo de titulo no puede estar vacío.",
+            tooShort: "El titulo es demasiado corto",
+            tooLong: "Muy Largo"
+        },
+        img: {
+            valueMissing: "El campo de imagen no puede estar vacío.",
+            patternMismatch: "Ingrese URL con HTTP o HTTPS.",
+            tooShort: "Muy Corto",
+            tooLong: "Muy Largo"
+        },
+        video: {
+            valueMissing: "El campo de video no puede estar vacío.",
+            patternMismatch: "Ingrese un URL /embed de youtube",
+            tooShort: "Muy Corto",
+            tooLong: "Muy Largo"
+        }
+    };
+
+    const [esmobil, setesmobil] = useState(true)
  
     return (<Context.Provider value={{ Equipos, setEquipos, Equipo, cambioSelect, videos, 
                                         setVideos, BannerContent, setBannerContent, botones, 
                                         selectitems_menu, selectitems_menuindex, titulos, 
                                         text, cambioText, setText, setEquipo,setestadoModal,
-                                        estadoModal, videoModal, setvideoModal
+                                        estadoModal, videoModal, setvideoModal, mensajes, 
+                                        tiposerror, esmobil, setesmobil
                                     }}>
         {children}
     </Context.Provider>

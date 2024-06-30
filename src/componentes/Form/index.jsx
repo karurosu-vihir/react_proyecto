@@ -113,18 +113,19 @@ const Button = styled.input`
 
 const Formulario = () =>{
 
-    const {titulos, Equipo, cambioSelect, text, cambioText, setText, setEquipo, selectitems_menu} = useContext(Context)
+    const {titulos, Equipo, cambioSelect, text, cambioText, setText, setEquipo, selectitems_menu,
+            mensajes, tiposerror} = useContext(Context)
 
     // Dom de los inputs
     const inputTitulo = useRef(null)
     const inputImg = useRef(null)
     const inputVideo = useRef(null)
+    const inputSelect = useRef(null)
 
     // Navegacion
     const nave = useNavigate() 
 
     // POST
-    
     async function crearVideos({titulo,img,video,categoria,descripcion}){
         try{
             const conexion = await fetch("http://localhost:3000/Videos",{
@@ -147,28 +148,78 @@ const Formulario = () =>{
         }
     }
 
+    // Validacion
+    function verficarcampo(input) {
+        let mensaje = "";
+        input.setCustomValidity("");
+    
+        tiposerror.forEach(error => {
+            if (input.validity[error]) {
+                mensaje = mensajes[input.name][error];
+            }
+        })
+        if(mensaje !== ""){
+            input.style.borderColor = 'red'
+            input.style.color = 'red'
+            input.value = mensaje
+        }
+        return mensaje;
+    };
+
     // Guardar Datos
     const guardar = async(e) =>{
         e.preventDefault();
-        let datosaenviar = {
-            titulo: inputTitulo.current.value,
-            img: inputImg.current.value,
-            video: inputVideo.current.value,
-            categoria: Equipo,
-            descripcion: text
-        };
-        setEquipo("")
-        setText("")
-        inputTitulo.current.value = ""
-        inputImg.current.value = ""
-        inputVideo.current.value = "" 
-        try {
-            await crearVideos(datosaenviar);
-            alert("Los datos han sido guardados");
-            selectitems_menu('/')
-            nave('/');
-        } catch (error) {
-            alert("Error while saving data");
+        let error = false;
+        if(Equipo === ""){
+            inputSelect.current.style.borderColor = 'red'
+            inputSelect.current.style.color = 'red'
+            error = true
+        }
+        else if(verficarcampo(inputTitulo.current) !== ""){
+            error = true 
+        }
+        else if(verficarcampo(inputImg.current) !== ""){
+            error = true
+        }
+        else if(verficarcampo(inputVideo.current) !== ""){
+            error = true 
+        }
+        if(error){
+            return
+        }
+        else{
+        
+            let datosaenviar = {
+                titulo: inputTitulo.current.value,
+                img: inputImg.current.value,
+                video: inputVideo.current.value,
+                categoria: Equipo,
+                descripcion: text
+            };
+            setEquipo("")
+            setText("")
+            inputTitulo.current.value = ""
+            inputImg.current.value = ""
+            inputVideo.current.value = "" 
+            try {
+                await crearVideos(datosaenviar);
+                alert("Los datos han sido guardados");
+                selectitems_menu('/')
+                nave('/');
+            } catch (error) {
+                alert("Error while saving data");
+            }
+        }
+    }
+
+    const camposPorDefecto = (input) => {
+        input.style.borderColor = '#262626'
+        input.style.color = '#A5A5A5'
+        if(input.name === "categoria"){
+            return
+        }
+        else{
+            input.value = ""
         }
     }
 
@@ -177,9 +228,10 @@ const Formulario = () =>{
         e.preventDefault()
         setEquipo("")
         setText("")
-        inputTitulo.current.value = ""
-        inputImg.current.value = ""
-        inputVideo.current.value = "" 
+        camposPorDefecto(inputTitulo.current)
+        camposPorDefecto(inputImg.current)
+        camposPorDefecto(inputVideo.current)
+        camposPorDefecto(inputSelect.current)
     }
     
     const Alcargar = () => {
@@ -187,18 +239,19 @@ const Formulario = () =>{
         setText("")
     }
 
-    return<FormStyle onSubmit={guardar} onReset={reset} onLoad={Alcargar}>
+    return<FormStyle onSubmit={guardar} onReset={reset} onLoad={Alcargar} noValidate>
             <TituloContainer>
                 <H3>Crear Tarjeta</H3>
             </TituloContainer>
             <Lines>
                 <Fieldset>
                     <legend htmlFor="titulo">Título</legend>
-                    <input ref={inputTitulo} name="titulo" type="text" placeholder="Título del video"/>
+                    <input ref={inputTitulo} name="titulo" type="text" placeholder="Título del video" maxLength="30" minLength="3" required
+                    onClick={()=>{camposPorDefecto(inputTitulo.current)}} />
                 </Fieldset>
                 <Fieldset>
                     <legend>Categoria</legend>
-                    <select value={Equipo} onChange={cambioSelect}>
+                    <select ref={inputSelect} value={Equipo} onChange={cambioSelect} name="categoria" onClick={()=>{camposPorDefecto(inputSelect.current)}}>
                         <option value="" disabled defaultValue="" hidden>Escoja una categoria</option>
                         {titulos.map((equipo, index)=><option key={index} value={equipo}>{equipo}</option>)}
                     </select>
@@ -207,18 +260,21 @@ const Formulario = () =>{
             <Lines>
                 <Fieldset>
                     <legend htmlFor="img">Imagen</legend>
-                    <input ref={inputImg} name="img" type="text" placeholder="Link de la imagen"/>
+                    <input ref={inputImg} name="img" type="text" placeholder="Link de la imagen" minLength="15" required 
+                    pattern="https?://.*" onClick={()=>{camposPorDefecto(inputImg.current)}}/>
                 </Fieldset>
                 <Fieldset>
                     <legend htmlFor="video">Video</legend>
-                    <input ref={inputVideo} name="video" type="text" placeholder="Link del video"/>
+                    <input ref={inputVideo} name="video" type="text" placeholder="Link del video" minLength="15" required
+                    pattern="https?:\/\/www\.youtube\.com\/embed\/.*" onClick={()=>{camposPorDefecto(inputVideo.current)}}/>
                 </Fieldset>
             </Lines>
             <Lines className="textarea">
                 <Fieldset>
                     <legend htmlFor="descripcion">Descripción</legend>
                     <textarea name="descripcion" id="descripcion"
-                        placeholder="Enter your text here..." 
+                        placeholder="Enter your text here..."
+                        maxLength="255"
                         value={text} 
                         onChange={cambioText}/>
                 </Fieldset>

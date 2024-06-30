@@ -12,6 +12,9 @@ const Rectagnle = styled.section`
     margin-bottom: 63px;
     overflow-x: scroll;
     overflow-y: hidden;
+    @media (max-width: 760px) {
+        margin-top: 30px;
+    }
     .titulo-container{
         width: 432px;
         height: 70px;
@@ -22,9 +25,6 @@ const Rectagnle = styled.section`
         position: sticky;
         top: 0;
         left: 20px;
-        @media (max-width: 1024px) {
-            align-self: center;
-        }
     }
     .titulo-container h2{
         font-size: 32px;

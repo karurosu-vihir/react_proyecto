@@ -104,7 +104,8 @@ const Button = styled.input`
 ` 
 
 const Modal = () => {
-    const {titulos, Equipo, cambioSelect, text, cambioText, setText, setEquipo, estadoModal, setestadoModal, videoModal} = useContext(Context)
+    const {titulos, Equipo, cambioSelect, text, cambioText, setText, setEquipo, estadoModal, setestadoModal, 
+        videoModal, mensajes, tiposerror} = useContext(Context)
 
     // Dom de los inputs
     const inputTitulo = useRef(null)
@@ -134,26 +135,69 @@ const Modal = () => {
         catch (error) {
             console.error("Error while updating video:", error);
         }
-    }   
+    }
+    
+        // Validacion
+        function verficarcampo(input) {
+            let mensaje = "";
+            input.setCustomValidity("");
+        
+            tiposerror.forEach(error => {
+                if (input.validity[error]) {
+                    mensaje = mensajes[input.name][error];
+                }
+            })
+            if(mensaje !== ""){
+                input.style.borderColor = 'red'
+                input.style.color = 'red'
+                input.value = mensaje
+            }
+            return mensaje;
+        };
+    
     
 
     const guardar = (e) =>{
         e.preventDefault();
-        let datosaenviar = {
-            titulo: inputTitulo.current.value,
-            img: inputImg.current.value,
-            video: inputVideo.current.value,
-            categoria: Equipo,
-            descripcion: text
-        };
-        setEquipo("")
-        setText("")
-        inputTitulo.current.value = ""
-        inputImg.current.value = ""
-        inputVideo.current.value = "" 
-        Actualizar(datosaenviar)
-        alert("Los datos han sido guardados")
-        setestadoModal(false)
+        let error = false;
+        if(verficarcampo(inputTitulo.current) !== ""){
+            error = true 
+        }
+        else if(verficarcampo(inputImg.current) !== ""){
+            error = true
+        }
+        else if(verficarcampo(inputVideo.current) !== ""){
+            error = true 
+        }
+        if(error){
+            return
+        }
+        else{
+            let datosaenviar = {
+                titulo: inputTitulo.current.value,
+                img: inputImg.current.value,
+                video: inputVideo.current.value,
+                categoria: Equipo,
+                descripcion: text
+            };
+            setEquipo("")
+            setText("")
+            inputTitulo.current.value = ""
+            inputImg.current.value = ""
+            inputVideo.current.value = "" 
+            Actualizar(datosaenviar)
+            alert("Los datos han sido guardados")
+            setestadoModal(false)
+        }
+    }
+
+    const camposPorDefecto = (input) => {
+        if(input.style.borderColor === 'red'){
+            input.value = ""
+        }
+        input.style.borderColor = '#2271D1'
+        input.style.color = '#A5A5A5'
+        
     }
 
     // Limpiar campos
@@ -161,9 +205,12 @@ const Modal = () => {
         e.preventDefault()
         setEquipo("")
         setText("")
+        camposPorDefecto(inputTitulo.current)
+        camposPorDefecto(inputImg.current)
+        camposPorDefecto(inputVideo.current)
         inputTitulo.current.value = ""
         inputImg.current.value = ""
-        inputVideo.current.value = "" 
+        inputVideo.current.value = ""
     }
 
     const Alcargar = () => {
@@ -181,12 +228,13 @@ const Modal = () => {
                     <button className="cerrar" onClick={()=>{setestadoModal(false)}}>
                                 <img src="./icons/X - cancel.png" alt="Cerrar" />
                             </button>
-                        <form method="dialog" onSubmit={guardar} onReset={reset}>
+                        <form method="dialog" onSubmit={guardar} onReset={reset} noValidate>
                             <Formdiv>
                                 <h3>Editar Card:</h3>
                                 <Fieldset>
                                     <legend htmlFor="titulo">Título</legend>
-                                    <input ref={inputTitulo} name="titulo" type="text" placeholder="Título del video"/>
+                                    <input ref={inputTitulo} name="titulo" type="text" placeholder="Título del video" maxLength="30" 
+                                    minLength="3" required onClick={()=>{camposPorDefecto(inputTitulo.current)}} />                                
                                 </Fieldset>
                                 <Fieldset>
                                     <legend>Categoria</legend>
@@ -196,11 +244,13 @@ const Modal = () => {
                                 </Fieldset>
                                 <Fieldset>
                                     <legend htmlFor="img">Imagen</legend>
-                                    <input ref={inputImg} name="img" type="text" placeholder="Link de la imagen"/>
+                                    <input ref={inputImg} name="img" type="text" placeholder="Link de la imagen" minLength="15" 
+                                    required pattern="https?://.*" onClick={()=>{camposPorDefecto(inputImg.current)}}/>
                                 </Fieldset>
                                 <Fieldset>
                                     <legend htmlFor="video">Video</legend>
-                                    <input ref={inputVideo} name="video" type="text" placeholder="Link del video"/>
+                                    <input ref={inputVideo} name="video" type="text" placeholder="Link del video" minLength="15" 
+                                    required pattern="https?:\/\/www\.youtube\.com\/embed\/.*" onClick={()=>{camposPorDefecto(inputVideo.current)}}/>                               
                                 </Fieldset>
                                 <Fieldset>
                                 <legend htmlFor="descripcion">Descripción</legend>

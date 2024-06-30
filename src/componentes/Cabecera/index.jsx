@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Link, useLocation } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Context } from "../../Context/GlobalContext"
 
 const Header = styled.header`
@@ -16,12 +16,26 @@ const Header = styled.header`
         height: 40px;
         width: 169px;
     }
+    @media(max-width: 760px){
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 500;
+        img{
+            width: 40px
+        }
+    }  
 `
 
 const GrupoBotones = styled.div`
     display: flex;
     align-items: center;
     gap: 30px;
+    @media (max-width: 760px) {
+        justify-content: space-between;
+        width: 100%;
+    }
     .Link{
         display: flex;
         width: 180px;
@@ -35,6 +49,10 @@ const GrupoBotones = styled.div`
         text-decoration: none;
         justify-content: center;
         align-items: center;
+        @media(max-width:760px){
+            width: 250px ;
+            justify-content: space-evenly;
+        }
     }
     .Home{
         box-shadow: inset 0px 0px 12px 4px #2271D1;
@@ -50,20 +68,41 @@ const GrupoBotones = styled.div`
 
 const Cabecera = () => {
 
-    const {botones, selectitems_menu, selectitems_menuindex} = useContext(Context)
+    const {botones, selectitems_menu, selectitems_menuindex, esmobil, setesmobil} = useContext(Context)
+
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 760px)");
+
+        const mediachange = () => {
+            if (media.matches) {
+                setesmobil(false);
+            } else {
+                setesmobil(true);
+            }
+        };
+        mediachange();
+        media.addEventListener("change", mediachange);
+        return () => {
+            media.removeEventListener("change", mediachange);
+        };
+    }, [setesmobil]);
 
     const location = useLocation()
 
-    return <Header onLoad={()=>{selectitems_menu(location.pathname)}}>
-        <img src="./img/logo.png" alt="logo" />
-        <GrupoBotones>
-            {
-                botones.map((boton,index)=>{
-                    return <Link key={index} to={boton.link} className={`Link ${boton.selected ? "Home":"Video"}`}
-                    onClick={()=>{selectitems_menuindex(index)}}>{boton.titulo}</Link>
-                })
-            }
-        </GrupoBotones>
+    return <Header onLoad={()=>{selectitems_menu(location.pathname)}} >
+        {esmobil &&
+            <img src="./img/logo.png" alt="logo"/>}
+            <GrupoBotones>
+                {
+                    botones.map((boton,index)=>{
+                        return <Link key={index} to={boton.link} className={`Link ${boton.selected ? "Home":"Video"}`}
+                        onClick={()=>{selectitems_menuindex(index)}}>
+                            {esmobil === false &&  <img src={boton.selected ? boton.iconSelected : boton.iconDefault}/>}
+                            {boton.titulo}
+                        </Link>
+                    })
+                }
+            </GrupoBotones>
     </Header>
 }
 
