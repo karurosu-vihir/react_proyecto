@@ -3,6 +3,7 @@ import Inicio from "./pages/Inicio"
 import PaginaBase from "./pages/PaginaBase"
 import Page404 from "./pages/Page404"
 import Crear from "./pages/crear"
+import MostrarVideo from "./pages/MostrarVideo"
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
             <Route path="/" element={<PaginaBase/>}>
               <Route index element={<Inicio/>}></Route>
               <Route path="/form" element={<Crear/>}></Route>
+              <Route path="/video/:id" element={<MostrarVideo/>}></Route>
               <Route path="*" element={<Page404/>}></Route>
           </Route>
         </Routes>

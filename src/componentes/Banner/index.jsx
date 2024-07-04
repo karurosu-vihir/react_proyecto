@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import styled from "styled-components"
 import { Context } from "../../Context/GlobalContext"
+import { useNavigate } from "react-router-dom"
 
 const BannerMain = styled.section`
     background-image: url("/img/BannerImg.png");
@@ -72,6 +73,13 @@ const Info = styled.div`
 
 const Banner = () => {
     const {BannerContent} = useContext(Context)
+    const nave = useNavigate();
+
+    const SendMostrarVideo = () => {
+        
+        nave(`/video/${BannerContent.id}`);
+    }
+
     return<BannerMain>
         { BannerContent.length !==0 &&
             <Clipper color={BannerContent.color.color}>
@@ -80,7 +88,7 @@ const Banner = () => {
                     <h3>{BannerContent.titulo}</h3>
                     <p>{BannerContent.descripcion}</p>
                 </Info>
-                <img src={BannerContent.img} alt="titulo" />
+                <img src={BannerContent.img} alt="titulo" onClick={()=>{SendMostrarVideo()}} />
             </Clipper>
         }
     </BannerMain>

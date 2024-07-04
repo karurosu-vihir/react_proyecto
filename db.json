@@ -47,6 +47,14 @@
       "categoria": "BACK END",
       "descripcion": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas placeat totam rem laboriosam, nulla quos hic! Aliquam odio quidem ipsum, magnam laudantium obcaecati ea impedit minima error, non nostrum beatae!",
       "id": "6"
+    },
+    {
+      "titulo": "La casa de mi Tio",
+      "img": "https://www.cats.org.uk/media/13136/220325case013.jpg?width=500&height=333.49609375",
+      "video": "https://www.youtube.com/embed/Wx3hPmUbi1s",
+      "categoria": "DEVOPS",
+      "descripcion": "Este Video y esta imagen no son mias las uso solamente de manera expositiva y demostrativa no pretendo ganar nada al usar esta media y los links originales estan ahi.",
+      "id": "27c6"
     }
   ]
 }

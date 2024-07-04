@@ -45,14 +45,14 @@ export const ContextProvider = ({ children }) => {
             "titulo": "home",
             "link":"/",
             "selected": true,
-            "iconDefault": "./icons/HomeDefault.png",
+            "iconDefault": "../icons/HomeDefault.png",
             "iconSelected": "./icons/HomeSelected.png"
         },
         {
             "titulo": "nuevo viedo",
             "link":"/form",
             "selected": false,
-            "iconDefault": "./icons/AddDefault.png",
+            "iconDefault": "../icons/AddDefault.png",
             "iconSelected": "./icons/AddSelected.png"
         }
     ])
@@ -118,7 +118,7 @@ export const ContextProvider = ({ children }) => {
         },
         video: {
             valueMissing: "El campo de video no puede estar vacío.",
-            patternMismatch: "Ingrese un URL /embed de youtube",
+            patternMismatch: "Ej:https://www.youtube.com/watch?v=",
             tooShort: "Muy Corto",
             tooLong: "Muy Largo"
         }

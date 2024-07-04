@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import styled from "styled-components"
 import { Context } from "../../../Context/GlobalContext"
+import { useNavigate } from "react-router-dom"
 
 const CardsStyle = styled.div`
     width: 430px;
@@ -54,7 +55,7 @@ const Editar = styled.div`
 
 const Card = ({video, color}) => {
 
-    const {setBannerContent, BannerContent, setestadoModal, setvideoModal} = useContext(Context)
+    const {setBannerContent, BannerContent, setestadoModal, setvideoModal, esmobil} = useContext(Context)
 
     const SendBanner = () => {
         const videotemp = {...video}
@@ -84,8 +85,16 @@ const Card = ({video, color}) => {
         } 
     }
 
+    // Para mobiles
+    const nave = useNavigate();
+
+    const SendMostrarVideo = (id) => {
+        nave(`/video/${id}`);
+    }
+
     return<CardsStyle color={color}>
-        <img src={video.img} alt={video.titulo} className="img" onClick={()=>{SendBanner()}}/>
+        <img src={video.img} alt={video.titulo} className="img" onClick={()=>{
+            (esmobil === false)? SendMostrarVideo(video.id) : SendBanner()}}/>
         <Info color={color}>
             <Borrar onClick={()=>{borrar(video.id)}}>
                 <img src="/icons/trash.png" alt="Eliminar"/>

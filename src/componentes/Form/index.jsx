@@ -188,11 +188,12 @@ const Formulario = () =>{
             return
         }
         else{
-        
+            let video = inputVideo.current.value.split('v=')[1]
+            let videoembed = `https://www.youtube.com/embed/${video}`
             let datosaenviar = {
                 titulo: inputTitulo.current.value,
                 img: inputImg.current.value,
-                video: inputVideo.current.value,
+                video: videoembed,
                 categoria: Equipo,
                 descripcion: text
             };
@@ -266,7 +267,7 @@ const Formulario = () =>{
                 <Fieldset>
                     <legend htmlFor="video">Video</legend>
                     <input ref={inputVideo} name="video" type="text" placeholder="Link del video" minLength="15" required
-                    pattern="https?:\/\/www\.youtube\.com\/embed\/.*" onClick={()=>{camposPorDefecto(inputVideo.current)}}/>
+                    pattern="https?:\/\/www\.youtube\.com\/watch\?v=.*" onClick={()=>{camposPorDefecto(inputVideo.current)}}/>
                 </Fieldset>
             </Lines>
             <Lines className="textarea">
