@@ -3,12 +3,16 @@
 
 # Anotaciones:
 El proyecto esta hecho con json server por lo cual no lo puedo desplegar en una pagina, si se quisiera usar hacer:
-npm i
-npm i json-server
-npx json-server --watch db.json
+<ul>
+  <li>npm i</li>
+  <li>npm i json-server</li>
+  <li>npx json-server --watch db.json</li>
+</ul>
 
 Y en otra Terminal:
-npm run dev
+<ul>
+  <li>npm run dev</li>
+</ul>
 
 # React + Vite
 
